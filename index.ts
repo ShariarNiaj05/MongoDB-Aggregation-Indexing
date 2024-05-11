@@ -174,3 +174,31 @@ db.test.aggregate(
 
 
 */
+
+
+/****
+ * 6-6 $Bucket, $Sort, And $Limit Aggregation Stage
+ * 
+ * db.test.aggregate(
+    [
+        // stage 1
+        {
+            $bucket: {
+                groupBy: "$age",
+                boundaries: [20, 40, 60, 80],
+                default: "higherBura",
+                output: {
+                    count: { $sum: 1 },
+                    personName: { $push: "$name" }, // to see only name
+                    // personDocuments: {$push: "$$ROOT"} // to see all the documents
+                }
+            }
+        },
+
+        // stage 2 
+       {$sort: { count: 1 }}
+
+    ]
+)
+
+*/
