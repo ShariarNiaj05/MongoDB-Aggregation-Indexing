@@ -102,7 +102,6 @@ db.test.aggregate(
 
 */
 
-
 /***
  * 
  * 6-4 
@@ -136,4 +135,42 @@ db.test.aggregate(
 
     ]
 )
+*/
+
+/****
+ * 6-5 Explore $Group With $Unwind Aggregation Stage
+ * 
+ * 
+ * db.test.aggregate(
+    [
+        // stage 1
+        { $unwind: "$friends" },
+        // stage 2 
+        { $group: { _id: "$friends", count: { $sum: 1 } } }
+    ]
+)
+
+
+db.test.aggregate(
+    [
+        // stage 1
+        {
+            $unwind: "$interests"
+
+        },
+
+        // stage 2 
+        {
+            $group: { _id: "$age", commonInterest: { $push: "$interests" } }
+        }
+
+    ]
+)
+
+ * 
+
+
+
+
+
 */
