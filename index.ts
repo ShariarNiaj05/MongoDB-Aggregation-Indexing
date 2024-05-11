@@ -1,9 +1,9 @@
 /****
  * ==> 6-0 Intro The Powerful Aggregation Framework
- * 
- *  Aggregation: Is a way of processing a large number of documents in a collection by means of passing them through different stages. 
+ *
+ *  Aggregation: Is a way of processing a large number of documents in a collection by means of passing them through different stages.
  * The stages is known as "PIPELINE"
- * 
+ *
  * */
 
 /***
@@ -21,7 +21,6 @@
     ]
 )
 */
-
 
 /****
  * 6-2 
@@ -46,6 +45,58 @@
         // //stage 4
         // { $out: "courseStudnet"} //create new collection with the given new property 
         {$merge: { into: { db: "test", coll: "newData" } }} //update the present collection with the given new property 
+    ]
+)
+
+*/
+
+/***
+ * 6-3 
+ * 
+ * $Group, $Sum Aggregation Stage = db.test.aggregate(
+    [
+        // stage 1 
+        // { $group: { _id: "$gender", count: { $sum: 1 } } },
+        { $group: { _id: "$address.country", count: { $sum: 1 } } }
+    ]
+), 
+
+db.test.aggregate(
+    [
+        // stage 1 
+        // { $group: { _id: "$gender", count: { $sum: 1 } } },
+        // { $group: { _id: "$address.country", count: {$sum: 1}, countryPeopleName: { $push: "$name" } } }
+        { $group: { 
+            _id: "$address.country", 
+            count: {$sum: 1}, 
+            fullDoc: { $push: "$$ROOT" } } 
+            
+        }, // Root is to show all the documents
+            // stage 2
+        {
+            $project: {
+                "fullDoc.name": 1, "fullDoc.email":1, 
+            }
+        }
+    ]
+)
+ ,
+
+
+==>$Push Aggregation Stage = db.test.aggregate(
+    [
+        // stage 1 
+        // { $group: { _id: "$gender", count: { $sum: 1 } } },
+        { $group: { _id: "$address.country", count: {$sum: 1}, countryPeopleName: { $push: "$name" } } }
+    ]
+)
+
+db.test.aggregate(
+    [
+        // stage 1 
+        // { $group: { _id: "$gender", count: { $sum: 1 } } },
+        // { $group: { _id: "$address.country", count: {$sum: 1}, countryPeopleName: { $push: "$name" } } }
+        { $group: { _id: "$address.country", count: {$sum: 1}, countryPeopleName: { $push: "$$ROOT" } } } // Root is to show all the documents
     ]
 )
 
