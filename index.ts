@@ -266,3 +266,11 @@ db.test.aggregate(
  * db.getCollection("massiveData").createIndex({email: 1})
  * 
  * ***/
+
+
+/**
+ * 6-10 Explore Compound Index And Text Index
+ * // db.getCollection("massiveData").createIndex({about: "text"})
+
+db.getCollection("massiveData").find({$text: { $search: "reprehenderit" }})
+ * **/
