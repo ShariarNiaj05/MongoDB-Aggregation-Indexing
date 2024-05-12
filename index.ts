@@ -259,3 +259,10 @@ db.test.aggregate(
 )
 
 */
+
+/**
+ * 6-9 What Is Indexing, COLLSCAN Vs IXSCAN
+ * 
+ * db.getCollection("massiveData").createIndex({email: 1})
+ * 
+ * ***/
