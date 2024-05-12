@@ -240,3 +240,22 @@ db.test.aggregate(
     ]
 )
 */
+
+
+/****
+ * 6-8 $Lookup Stage, Embedding Vs Referencing
+ * 
+ * db.orders.aggregate(
+    [
+        {
+            $lookup: {
+                from: "test",
+                localField: "userId",
+                foreignField: "_id",
+                as: "user"
+            }
+        }
+    ]
+)
+
+*/
