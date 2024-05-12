@@ -202,3 +202,41 @@ db.test.aggregate(
 )
 
 */
+
+
+/****
+ * 6-7 $Facet, Multiple Pipeline Aggregation Stage
+ * 
+ * db.test.aggregate(
+    [
+        {
+            $facet: {
+                // pipeine 1 
+                "friendsCount": [
+                    // sage 1 of pipeline 1
+                    { $unwind: "$friends" },
+                    // sage 2 of pipeline 1
+                    { $group: { _id: "$friends", count: { $sum: 1 } } }
+                ],
+
+                // pipeline 2 
+                "educationCount": [
+                    // stage 1 of pipeline 2 
+                    { $unwind: "$education" },
+                    // stage 2 of pipeline 2 
+                    { $group: { _id: "$education", count: { $sum: 1 } } }
+                ],
+
+                // pipeline 3 
+                "skillsCount": [
+                    // stage 1 pipeline 3 
+                    { $unwind: "$skills" },
+                    //  stage 2 of pipeline 3 
+                    { $group: { _id: "$skills", count: { $sum: 1 } } }
+
+                ]
+            }
+        }
+    ]
+)
+*/
